@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+  <meta charset="utf-8">
+  <title>Layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}"  media="all">
+  <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <script src="{% static 'js/axios.min.js' %}"></script>
+    <script src="{% static 'js/vue.min.js' %}"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<div class="layui-container">
+  <div class="layui-row">
+    <div class="layui-col-md9">
+      <ul class="layui-nav" lay-filter="">
+          <li class="layui-nav-item layui-this"><a href="{% url 'user:index' %}">库存统计</a></li>
+          <li class="layui-nav-item"><a href="{% url 'goods:addgoods' %}">添加商品</a></li>
+          <li class="layui-nav-item"><a href="{% url 'goods:goodstype' %}">编辑商品类型</a></li>
+          <li class="layui-nav-item"><a href="{% url 'goods:tj' %}">图表统计</a></li>
+        </ul>
+    </div>
+    <div class="layui-col-md3">
+      <ul class="layui-nav" lay-filter="">
+          {% if user %}
+          <li class="layui-nav-item layui-this">您好</li>
+          <li class="layui-nav-item"><a href="">{{ user.username }}</a></li>
+          <li class="layui-nav-item"><a href="{% url 'user:logout' %}">退出</a></li>
+          {% endif %}
+        </ul>
+    </div>
+  </div>
+    <form id="form1" method="post" class="layui-form" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品图片</label>
+                <img id="img" width="200px" height="200px" src="/static/media/{{ goodsinfo.good_pic }}">
+                <input type="file" name="goodspic">
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="goodsname" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" value={{ goodsinfo.good_name }}>
+                </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品类型</label>
+                <div class="layui-input-inline">
+                  <select name="goodstype" lay-filter="goodstype">
+                        <option value={{ goodsinfo.good_type_id }} selected>{{ goodsinfo.good_type.good_type_name }}</option>
+                    {% for type in goodstype %}
+                        <option value={{ type.id }}>{{ type.good_type_name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="layui-form-mid layui-word-aux"><a href="{% url 'goods:addgoodstype' %}">添加商品类型</a></div>
+        </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">商品数量</label>
+        <div class="layui-input-inline">
+          <input value={{ goodsinfo.good_count }} type="text" name="goodscount" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        </div>
+           <div class="layui-form-mid layui-word-aux">个</div>
+    </div>
+
+  <div class="layui-form-item layui-form-text">
+    <label class="layui-form-label">商品备注</label>
+    <div class="layui-input-block">
+      <textarea placeholder="请输入内容" class="layui-textarea" name="goodsdesc">{{ goodsinfo.good_desc }}</textarea>
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+</div>
+
+</body>
+<script src="{% static 'layui/layui.js' %}" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use('form', function(){
+  var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+  form.render();
+});
+</script>
+<script src="{% static 'js/message.js' %}" charset="utf-8"></script>
+
+
+
+</html>

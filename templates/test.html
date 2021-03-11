@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+  <meta charset="utf-8">
+  <title>Layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}"  media="all">
+  <script src="{% static 'js/echarts.min.js' %}"  ></script>
+  <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<div class="layui-container">
+  <div class="layui-row">
+    <div class="layui-col-md9">
+      <ul class="layui-nav" lay-filter="">
+          <li class="layui-nav-item layui-this"><a href="{% url 'user:index' %}">库存统计</a></li>
+          <li class="layui-nav-item"><a href="{% url 'goods:addgoods' %}">添加商品</a></li>
+          <li class="layui-nav-item"><a href="{% url 'goods:goodstype' %}">编辑商品类型</a></li>
+        </ul>
+    </div>
+    <div class="layui-col-md3">
+      <ul class="layui-nav" lay-filter="">
+          {% if user %}
+          <li class="layui-nav-item layui-this">您好</li>
+          <li class="layui-nav-item"><a href="">{{ user.username }}</a></li>
+          <li class="layui-nav-item"><a href="{% url 'user:logout' %}">退出</a></li>
+          {% endif %}
+        </ul>
+    </div>
+  </div>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+
+</div>
+
+
+
+</body>
+<script src="{% static 'layui/layui.js' %}" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+
+</html>
