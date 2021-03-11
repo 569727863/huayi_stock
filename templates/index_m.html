@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<link rel="stylesheet" href="{% static 'layui/css/layui.css' %}"  media="all">
+</head>
+<body>
+
+<div data-role="page" id="pageone">
+  <div data-role="header">
+    <h1>回流表格</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+    <p>回流模型表格在屏幕尺寸足够大时是水平显示，而在屏幕尺寸达到足够小时，所有的数据会变成垂直显示。</p>
+
+    <p>重置窗口大小查看效果：</p>
+    <table data-role="table" class="ui-responsive">
+      <thead>
+        <tr>
+          <th>商品id</th>
+          <th>商品名称</th>
+          <th>商品类别</th>
+          <th>商品数量</th>
+          <th>单位</th>
+          <th>商品描述</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for good in page_goods %}
+        <tr>
+          <td>{{ good.id }}</td>
+          <td>{{ good.good_name }}</td>
+          <td>{{ good.good_type.good_type_name }}</td>
+          <td>{{ good.good_count}}</td>
+          <td>个</td>
+          <td>{{ good.good_desc }}</td>
+          <td>
+              <a href="{% url 'goods:goodsinfo' good.id %}" class="layui-btn">查看</a>
+              <a href="{% url 'goods:delgoods' good.id %}" class="layui-btn layui-btn-danger">删除</a>
+          </td>
+        </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+  <div data-role="footer" data-position="fixed">
+    <h1>底部文本</h1>
+  </div>
+</div>
+
+</body>
+</html>
