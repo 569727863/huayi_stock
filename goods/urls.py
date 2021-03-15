@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^delgoods/(?P<goodsid>\d+)$',views.DeletegoodsView.as_view(),name='delgoods'),
     url(r'^delgoodstype/(?P<typeid>\d+)$',views.DeletetypeView.as_view(),name='delgoodstype'),
     url(r'^tj$',views.TjView.as_view(),name='tj'),
+    url(r'^search$',views.SearchView.as_view(),name='search'),
 
 
 ]

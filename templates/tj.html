@@ -16,17 +16,16 @@
   <div class="layui-row">
     <div class="layui-col-md9">
       <ul class="layui-nav" lay-filter="">
-          <li class="layui-nav-item layui-this"><a href="{% url 'user:index' %}">库存统计</a></li>
+          <li class="layui-nav-item"><a href="{% url 'user:index' %}">库存统计</a></li>
           <li class="layui-nav-item"><a href="{% url 'goods:addgoods' %}">添加商品</a></li>
           <li class="layui-nav-item"><a href="{% url 'goods:goodstype' %}">编辑商品类型</a></li>
-          <li class="layui-nav-item"><a href="{% url 'goods:tj' %}">图表统计</a></li>
+          <li class="layui-nav-item layui-this"><a href="{% url 'goods:tj' %}">图表统计</a></li>
         </ul>
     </div>
     <div class="layui-col-md3">
       <ul class="layui-nav" lay-filter="">
-          {% if user %}
-          <li class="layui-nav-item layui-this">您好</li>
-
+          {% if user.username %}
+          <li class="layui-nav-item">您好</li>
           <li class="layui-nav-item"><a href="">{{ user.username }}</a></li>
           <li class="layui-nav-item"><a href="{% url 'user:logout' %}">退出</a></li>
           {% endif %}
@@ -36,9 +35,8 @@
 
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="main" style="width: 600px;height:400px;"></div>
-
-
     <div id="count" style="width: 600px;height:400px;"></div>
+
 </div>
 
 
@@ -128,4 +126,5 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
     </script>
+
 </html>

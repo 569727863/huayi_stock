@@ -67,14 +67,17 @@ class LoginView(View):
 class IndexView(LoginRequiredMixin,View):
     def get(self,request):
         # sort = request.GET.get('sort','id')
+        goods_list = []
         page_num = request.GET.get('page_num',1)
         goods = Goods.objects.order_by('id')
+        for good in goods:
+            goods_list.append(good.good_name)
         count = goods.count()
         paginator = Paginator(goods,10)
         page_goods = paginator.page(page_num)
         # total_page = paginator.num_pages
         context = {
-            # 'goods':goods,
+            'goods_list':goods_list,
             'count':count,
             'page_goods':page_goods,
             'page_num':page_num,

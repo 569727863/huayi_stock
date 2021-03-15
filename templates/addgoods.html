@@ -9,14 +9,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}"  media="all">
   <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+
 </head>
 <body>
 <div class="layui-container">
   <div class="layui-row">
     <div class="layui-col-md9">
       <ul class="layui-nav" lay-filter="">
-          <li class="layui-nav-item layui-this"><a href="{% url 'user:index' %}">库存统计</a></li>
-          <li class="layui-nav-item"><a href="{% url 'goods:addgoods' %}">添加商品</a></li>
+          <li class="layui-nav-item"><a href="{% url 'user:index' %}">库存统计</a></li>
+          <li class="layui-nav-item layui-this"><a href="{% url 'goods:addgoods' %}">添加商品</a></li>
           <li class="layui-nav-item"><a href="{% url 'goods:goodstype' %}">编辑商品类型</a></li>
           <li class="layui-nav-item"><a href="{% url 'goods:tj' %}">图表统计</a></li>
         </ul>
@@ -24,7 +25,7 @@
     <div class="layui-col-md3">
       <ul class="layui-nav" lay-filter="">
           {% if user.username %}
-          <li class="layui-nav-item layui-this">您好</li>
+          <li class="layui-nav-item">您好</li>
           <li class="layui-nav-item"><a href="">{{ user.username }}</a></li>
           <li class="layui-nav-item"><a href="{% url 'user:logout' %}">退出</a></li>
           {% endif %}
@@ -37,6 +38,7 @@
     <label class="layui-form-label">商品名称</label>
     <div class="layui-input-inline">
       <input type="text" name="goodsname" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        <div id="auto_div"></div>
     </div>
   </div>
 
@@ -88,4 +90,5 @@
   form.render();
 });
 </script>
+
 </html>

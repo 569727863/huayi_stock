@@ -18,7 +18,7 @@
   <div class="layui-row">
     <div class="layui-col-md9">
       <ul class="layui-nav" lay-filter="">
-          <li class="layui-nav-item layui-this"><a href="{% url 'user:index' %}">库存统计</a></li>
+          <li class="layui-nav-item"><a href="{% url 'user:index' %}">库存统计</a></li>
           <li class="layui-nav-item"><a href="{% url 'goods:addgoods' %}">添加商品</a></li>
           <li class="layui-nav-item"><a href="{% url 'goods:goodstype' %}">编辑商品类型</a></li>
           <li class="layui-nav-item"><a href="{% url 'goods:tj' %}">图表统计</a></li>
@@ -26,8 +26,8 @@
     </div>
     <div class="layui-col-md3">
       <ul class="layui-nav" lay-filter="">
-          {% if user %}
-          <li class="layui-nav-item layui-this">您好</li>
+          {% if user.username %}
+          <li class="layui-nav-item">您好</li>
           <li class="layui-nav-item"><a href="">{{ user.username }}</a></li>
           <li class="layui-nav-item"><a href="{% url 'user:logout' %}">退出</a></li>
           {% endif %}

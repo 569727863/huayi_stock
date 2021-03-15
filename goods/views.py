@@ -12,6 +12,16 @@ from goods.models import Goods,GoodsType
 from django.db import DatabaseError
 from django.db.models import Count
 
+class SearchView(View):
+    def get(self,request):
+        goods_list = []
+        goods = Goods.objects.all()
+        for good in goods:
+            goods_list.append(good.good_name)
+        content = {
+            'goods_list':goods_list,
+        }
+        return render(request,'search.html',context=content)
 class TjView(View):
     def get(self,request):
         good_type_name = []
